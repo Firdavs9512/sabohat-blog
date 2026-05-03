@@ -65,13 +65,15 @@ Ikkalasi ham bir xil narsani anglatadi. Asosiy nom — Sabohat.
 
 Hozirgacha qilingan ishlar:
 
-- `BrainNet` arxitekturasining bir nechta versiyalari (v2, v3)
+- `BrainNet` arxitekturasining bir nechta versiyalari (v2, v3) — GNN bosqichi
 - `PCN` (Predictive Coding Network) — local update qoidasi
 - `dopamine_v3` — learning rate'ni "dopamin signali" bilan boshqarish
 - `train_v5`, `train_v6` — turli training pipeline'lar
 - O'zbek tilidagi katta dataset (kun.uz, daryo.uz, Wikipediya, kitoblar)
 
-200+ sinov o'tdi. Ko'pi muvaffaqiyatsiz, lekin har biridan bir narsa o'rgandim. Forgetting hozir ~4.5% atrofida — maqsad bu ko'rsatkichni 1% gacha tushirish.
+200+ sinov o'tdi. Ko'pi muvaffaqiyatsiz, lekin har biridan bir narsa o'rgandim.
+
+**Muhim eslatma:** Yuqorida tasvirlangan GNN-asoslangan arxitektura — loyihaning *boshlang'ich* bosqichi. Bir nechta sinovdan keyin men **SNN** (*Spiking Neural Network*) yondashuviga o'tdim — chunki u biologik miyaga yanada yaqinroq, energiya samarali, va spike-timing orqali tabiiy ravishda continual learning'ga moyil. Bu o'tish va undan keyin nimalar o'zgargani haqida alohida yozuvda batafsil yozaman.
 
 Yo'l uzun. ROADMAP'da 28 hafta yozilgan, men bilamanki amalda ikki barobar ko'p ketadi. Lekin asosiysi — boshlandi.
 

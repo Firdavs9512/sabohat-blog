@@ -15,10 +15,43 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 
 const dateStr = post.data.date.toISOString().slice(0, 10);
+const pubISO = post.data.date.toISOString();
+const description =
+	post.data.excerpt ?? `${post.data.title} — Sabohat AI loyihasi yozuvlari.`;
+const canonical = new URL(`/blog/${post.id}/`, Astro.site ?? 'https://ai.solvie.me').toString();
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: post.data.title,
+	description,
+	datePublished: pubISO,
+	author: {
+		'@type': 'Person',
+		name: 'Firdavs',
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'Sabohat',
+		url: Astro.site?.toString() ?? 'https://ai.solvie.me',
+	},
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': canonical,
+	},
+	inLanguage: 'uz',
+	keywords: post.data.tag,
+};
 ---
 
-<Layout title={`${post.data.title} · sabohat`} description={post.data.excerpt}>
-	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← /blog</a>
+<Layout
+	title={`${post.data.title} · Sabohat`}
+	description={description}
+	type="article"
+	publishedTime={pubISO}
+	tag={post.data.tag}
+>
+	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← yozuvlar</a>
 
 	<article class="mt-4">
 		<header>
@@ -38,7 +71,9 @@ const dateStr = post.data.date.toISOString().slice(0, 10);
 
 	<AsciiDivider style="double" />
 
-	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← all posts</a>
+	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← barcha yozuvlar</a>
+
+	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 </Layout>
 
 <style is:global>

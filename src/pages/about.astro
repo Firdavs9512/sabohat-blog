@@ -3,19 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import AsciiDivider from '../components/AsciiDivider.astro';
 ---
 
-<Layout title="about · sabohat">
-	<h1 class="text-2xl">/about</h1>
+<Layout
+	title="Men haqimda · Sabohat"
+	description="Sabohat — miyaga o'xshash ishlovchi SNN (Spiking Neural Network) AI modeli. Loyihaning maqsadi, bosqichlari va shu yerda nima yozilishi haqida."
+>
+	<h1 class="text-2xl">/men-haqimda</h1>
 
 	<AsciiDivider style="dashed" />
 
 	<div class="space-y-4 text-[17px] leading-relaxed">
 		<p>
 			Bu blog — <strong>Sabohat</strong> deb nomlangan, miyaga o'xshash
-			ishlovchi AI model ustidagi ishlarim haqida.
-			<strong>Spiking Neural Network</strong> (SNN) arxitekturasi asosida
-			qurilgan; klassik ANN'lardan farqli o'laroq, neyronlar uzluksiz
-			signal emas, biologik miyadagi kabi <em>spike</em>'lar orqali
-			muloqot qiladi.
+			ishlovchi AI model ustidagi ishlarim haqida. Hozirgi arxitektura —
+			<strong>Spiking Neural Network</strong> (SNN); klassik ANN'lardan
+			farqli o'laroq, neyronlar uzluksiz signal emas, biologik miyadagi
+			kabi <em>spike</em>'lar orqali muloqot qiladi.
+		</p>
+		<p>
+			Loyiha boshlanishida arxitektura <strong>Graph Neural Network</strong>
+			(GNN) edi — 4-darajali (character → morpheme → word → semantic) graf
+			tuzilmasi. Bir nechta sinovdan keyin SNN yondashuviga o'tdim, chunki
+			u biologik miyaga yanada yaqinroq va energiya samarali. Bu o'tish
+			haqida alohida yozuvlarda yozaman.
 		</p>
 		<p>
 			Asosiy maqsadlar: <span class="font-mono text-sm">(1)</span> modelni
@@ -25,9 +34,8 @@ import AsciiDivider from '../components/AsciiDivider.astro';
 			kamaytirish.
 		</p>
 		<p>
-			Hozirgacha 200+ sinov o'tkazilgan; har biri spike encoding,
-			plasticity qoidalari, va xotira konsolidatsiyasi yo'llarini
-			tekshirish uchun.
+			Hozirgacha 200+ sinov o'tkazilgan; har biri spike encoding, plasticity
+			qoidalari va xotira konsolidatsiyasi yo'llarini tekshirish uchun.
 		</p>
 		<p>
 			Bu yerda men: ish kundaliklarini, texnik eslatmalarni va til/AI

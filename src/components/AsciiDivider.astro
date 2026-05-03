@@ -13,17 +13,17 @@ const chars: Record<string, string> = {
 	plus: '+',
 };
 const ch = chars[style];
-const line = ch.repeat(80);
+const fill = ch.repeat(200);
 ---
 
-<div class="ascii my-6 text-muted text-[10px] sm:text-xs leading-tight select-none">
+<div class="ascii my-6 text-muted text-[10px] sm:text-xs leading-tight select-none w-full overflow-hidden">
 	{label ? (
-		<div class="flex items-center gap-2">
+		<div class="flex items-center gap-2 min-w-0 w-full">
 			<span class="shrink-0">{ch.repeat(3)}</span>
-			<span class="font-mono uppercase tracking-widest">[ {label} ]</span>
-			<span class="grow truncate">{line}</span>
+			<span class="font-mono uppercase tracking-widest shrink-0">[ {label} ]</span>
+			<span class="block grow overflow-hidden whitespace-nowrap min-w-0">{fill}</span>
 		</div>
 	) : (
-		<div class="truncate">{line}</div>
+		<div class="w-full whitespace-nowrap overflow-hidden">{fill}</div>
 	)}
 </div>

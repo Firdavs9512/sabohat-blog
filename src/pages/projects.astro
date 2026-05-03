@@ -5,21 +5,24 @@ import AsciiDivider from '../components/AsciiDivider.astro';
 const projects = [
 	{
 		name: 'sabohat',
-		status: 'active',
-		desc: 'SNN (Spiking Neural Network) asosida miyaga o\'xshash AI model. Self-learning va continual learning muammosini kamaytirishga qaratilgan. 200+ sinov.',
+		status: 'faol',
+		desc: "SNN (Spiking Neural Network) asosida miyaga o'xshash AI model. O'z-o'zidan o'rganish va continual learning muammosini kamaytirishga qaratilgan. 200+ sinov.",
 		link: 'https://ai.solvie.me',
 	},
 	{
 		name: 'solvie',
-		status: 'active',
-		desc: 'Sabohat va boshqa AI tajribalarni joylashtirgan asosiy domen.',
+		status: 'faol',
+		desc: "Sabohat va boshqa AI tajribalarni joylashtirgan asosiy domen.",
 		link: 'https://solvie.me',
 	},
 ];
 ---
 
-<Layout title="projects · sabohat">
-	<h1 class="text-2xl">/projects</h1>
+<Layout
+	title="Loyihalar · Sabohat"
+	description="Hozir ustida ishlayotgan AI loyihalari: Sabohat (miyaga o'xshash GNN) va solvie.me asosiy domeni."
+>
+	<h1 class="text-2xl">/loyihalar</h1>
 	<p class="mt-2 font-mono text-sm text-muted">// Hozir ustida ishlayotgan narsalar.</p>
 
 	<AsciiDivider style="single" />

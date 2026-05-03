@@ -11,30 +11,34 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 	.slice(0, 5);
 ---
 
-<Layout>
+<Layout
+	title="Sabohat — AI tadqiqot kundaligi"
+	description="Sabohat (Samantha) — miyaga o'xshash SNN AI modeli ustida olib borilayotgan tadqiqot. O'zbek tili uchun, self-learning va continual learning fokusida ishlovchi loyiha kundaligi."
+>
 	<AsciiBanner variant="logo" />
 
 	<section class="mt-2">
 		<p class="text-[17px] leading-relaxed">
 			<span class="font-mono text-muted">&gt; </span>
-			<strong>Sabohat</strong> — <abbr title="Spiking Neural Network">SNN</abbr>
-			asosida ishlaydigan, miyaga o'xshash AI model. Maqsad — modelni
-			o'z-o'zidan o'rgana oladigan holatga olib chiqish va
+			<strong>Sabohat</strong> —
+			<abbr title="Spiking Neural Network">SNN</abbr> asosida ishlaydigan,
+			miyaga o'xshash AI model. Maqsad — modelni o'z-o'zidan o'rgana
+			oladigan holatga olib chiqish va
 			<abbr title="Continual Learning">CL</abbr> muammosini (catastrophic
 			forgetting) sezilarli darajada kamaytirish.
 		</p>
 
 		<InfoCard
 			items={[
-				{ label: 'arch', value: 'SNN (spiking) · brain-inspired' },
-				{ label: 'goal', value: 'self-learning + reduce CL forgetting' },
-				{ label: 'trials', value: '200+ sinov' },
-				{ label: 'site', value: 'ai.solvie.me', href: 'https://ai.solvie.me' },
+				{ label: 'arxitektura', value: 'SNN · miyaga o\'xshash · spike-based' },
+				{ label: 'maqsad', value: 'o\'z-o\'zidan o\'rganish + CL forgetting kamaytirish' },
+				{ label: 'sinovlar', value: '200+' },
+				{ label: 'sayt', value: 'ai.solvie.me', href: 'https://ai.solvie.me' },
 			]}
 		/>
 	</section>
 
-	<AsciiDivider style="double" label="latest entries" />
+	<AsciiDivider style="double" label="so'nggi yozuvlar" />
 
 	<section class="divide-y divide-border-soft">
 		{posts.map((p, i) => (
@@ -50,6 +54,6 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 	</section>
 
 	<div class="mt-6 font-mono text-xs text-muted">
-		<a href="/blog" class="no-underline hover:text-accent">→ all posts</a>
+		<a href="/blog" class="no-underline hover:text-accent">→ barcha yozuvlar</a>
 	</div>
 </Layout>

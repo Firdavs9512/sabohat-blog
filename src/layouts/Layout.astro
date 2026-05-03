@@ -62,6 +62,18 @@ const ogImage = new URL(image, Astro.site ?? 'https://ai.solvie.me').toString();
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+
+		{import.meta.env.PROD && (
+			<>
+				<script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4RXEH5K"></script>
+				<script is:inline>
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					gtag('config', 'G-ELP4RXEH5K');
+				</script>
+			</>
+		)}
 	</head>
 	<body class="bg-bg text-ink overflow-x-hidden">
 		<div class="mx-auto max-w-3xl px-4 sm:px-8">

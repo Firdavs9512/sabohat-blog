@@ -1,0 +1,38 @@
+---
+const links = [
+	{ href: '/', label: 'index' },
+	{ href: '/blog', label: 'blog' },
+	{ href: '/projects', label: 'projects' },
+	{ href: '/about', label: 'about' },
+];
+
+const path = Astro.url.pathname;
+---
+
+<header class="pt-8">
+	<div class="flex items-center justify-between gap-4">
+		<a href="/" class="no-underline flex items-baseline gap-2">
+			<span class="font-mono text-base font-semibold tracking-tight">[sabohat]</span>
+			<span class="font-mono text-xs text-muted hidden sm:inline">~/ai.solvie.me</span>
+		</a>
+		<nav class="font-mono text-sm flex gap-4">
+			{links.map((l) => {
+				const active = l.href === '/' ? path === '/' : path.startsWith(l.href);
+				return (
+					<a
+						href={l.href}
+						class:list={[
+							'no-underline hover:text-accent',
+							active && 'text-accent',
+						]}
+					>
+						{active ? `> ${l.label}` : l.label}
+					</a>
+				);
+			})}
+		</nav>
+	</div>
+	<div class="mt-4 ascii text-[10px] sm:text-xs text-muted leading-tight select-none">
+{`════════════════════════════════════════════════════════════════════`}
+	</div>
+</header>

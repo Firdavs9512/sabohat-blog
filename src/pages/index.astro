@@ -1,11 +1,55 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import AsciiBanner from '../components/AsciiBanner.astro';
+import InfoCard from '../components/InfoCard.astro';
+import AsciiDivider from '../components/AsciiDivider.astro';
+import PostCard from '../components/PostCard.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 5);
 ---
 
 <Layout>
-	<Welcome />
+	<AsciiBanner variant="logo" />
+
+	<section class="mt-2">
+		<p class="text-[17px] leading-relaxed">
+			<span class="font-mono text-muted">&gt; </span>
+			<strong>Sabohat</strong> — <abbr title="Spiking Neural Network">SNN</abbr>
+			asosida ishlaydigan, miyaga o'xshash AI model. Maqsad — modelni
+			o'z-o'zidan o'rgana oladigan holatga olib chiqish va
+			<abbr title="Continual Learning">CL</abbr> muammosini (catastrophic
+			forgetting) sezilarli darajada kamaytirish.
+		</p>
+
+		<InfoCard
+			items={[
+				{ label: 'arch', value: 'SNN (spiking) · brain-inspired' },
+				{ label: 'goal', value: 'self-learning + reduce CL forgetting' },
+				{ label: 'trials', value: '200+ sinov' },
+				{ label: 'site', value: 'ai.solvie.me', href: 'https://ai.solvie.me' },
+			]}
+		/>
+	</section>
+
+	<AsciiDivider style="double" label="latest entries" />
+
+	<section class="divide-y divide-border-soft">
+		{posts.map((p, i) => (
+			<PostCard
+				index={i}
+				title={p.data.title}
+				href={`/blog/${p.id}`}
+				date={p.data.date.toISOString().slice(0, 10)}
+				tag={p.data.tag}
+				excerpt={p.data.excerpt}
+			/>
+		))}
+	</section>
+
+	<div class="mt-6 font-mono text-xs text-muted">
+		<a href="/blog" class="no-underline hover:text-accent">→ all posts</a>
+	</div>
 </Layout>

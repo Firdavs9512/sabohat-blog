@@ -1,0 +1,29 @@
+---
+interface Item {
+	label: string;
+	value: string;
+	href?: string;
+}
+interface Props {
+	title?: string;
+	items: Item[];
+}
+const { items } = Astro.props;
+---
+
+<aside class="my-6 text-[15px] leading-relaxed">
+	<dl class="flex flex-wrap gap-x-6 gap-y-1">
+		{items.map((it) => (
+			<div class="flex items-baseline gap-2">
+				<dt class="text-muted">{it.label}:</dt>
+				<dd>
+					{it.href ? (
+						<a href={it.href} class="no-underline hover:text-accent">{it.value}</a>
+					) : (
+						it.value
+					)}
+				</dd>
+			</div>
+		))}
+	</dl>
+</aside>

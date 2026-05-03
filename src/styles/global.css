@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--font-serif: "Charter", "Georgia", "Times New Roman", serif;
+	--font-mono: "JetBrains Mono", "IBM Plex Mono", "Menlo", "Consolas", monospace;
+
+	--color-bg: #f6f6ef;
+	--color-surface: #ffffff;
+	--color-border: #1a1a1a;
+	--color-border-soft: #d0d0c8;
+	--color-ink: #1a1a1a;
+	--color-muted: #6b6b66;
+	--color-accent: #ff6600;
+	--color-accent-soft: #ffe9d6;
+}
+
+@layer base {
+	html {
+		background: var(--color-bg);
+		color: var(--color-ink);
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.6;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	body {
+		min-height: 100vh;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+	}
+
+	a:hover {
+		color: var(--color-accent);
+	}
+
+	h1, h2, h3, h4 {
+		font-family: var(--font-mono);
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	code, pre, kbd, samp {
+		font-family: var(--font-mono);
+	}
+
+	::selection {
+		background: var(--color-accent);
+		color: #fff;
+	}
+}
+
+@layer components {
+	.ascii {
+		font-family: var(--font-mono);
+		white-space: pre;
+		line-height: 1.15;
+		letter-spacing: 0;
+	}
+
+	.terminal-frame {
+		border: 1px solid var(--color-border);
+		background: var(--color-surface);
+	}
+
+	.dotted-rule {
+		border-top: 1px dashed var(--color-border-soft);
+	}
+
+	.blink::after {
+		content: "▮";
+		display: inline-block;
+		margin-left: 2px;
+		animation: blink 1.05s steps(1) infinite;
+	}
+
+	@keyframes blink {
+		50% { opacity: 0; }
+	}
+}

@@ -1,0 +1,145 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import AsciiDivider from '../../components/AsciiDivider.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateStr = post.data.date.toISOString().slice(0, 10);
+---
+
+<Layout title={`${post.data.title} · sabohat`} description={post.data.excerpt}>
+	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← /blog</a>
+
+	<article class="mt-4">
+		<header>
+			<h1 class="text-2xl sm:text-3xl leading-tight">{post.data.title}</h1>
+			<div class="mt-3 flex flex-wrap items-center gap-x-3 font-mono text-xs text-muted">
+				<time datetime={dateStr}>{dateStr}</time>
+				{post.data.tag && <span>· #{post.data.tag}</span>}
+			</div>
+		</header>
+
+		<AsciiDivider style="dashed" />
+
+		<div class="post-body">
+			<Content />
+		</div>
+	</article>
+
+	<AsciiDivider style="double" />
+
+	<a href="/blog" class="font-mono text-xs text-muted no-underline hover:text-accent">← all posts</a>
+</Layout>
+
+<style is:global>
+	.post-body {
+		font-size: 17px;
+		line-height: 1.7;
+	}
+	.post-body > * + * {
+		margin-top: 1.1em;
+	}
+	.post-body h2 {
+		font-family: var(--font-mono);
+		font-size: 1.25rem;
+		font-weight: 600;
+		margin-top: 2em;
+		margin-bottom: 0.4em;
+		letter-spacing: -0.01em;
+	}
+	.post-body h3 {
+		font-family: var(--font-mono);
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin-top: 1.6em;
+		margin-bottom: 0.3em;
+	}
+	.post-body p {
+		margin-top: 1em;
+	}
+	.post-body a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 2px;
+	}
+	.post-body a:hover {
+		color: var(--color-accent);
+	}
+	.post-body strong {
+		font-weight: 600;
+	}
+	.post-body em {
+		font-style: italic;
+	}
+	.post-body ul,
+	.post-body ol {
+		padding-left: 1.4em;
+	}
+	.post-body ul {
+		list-style: none;
+	}
+	.post-body ul > li {
+		position: relative;
+	}
+	.post-body ul > li::before {
+		content: "─";
+		position: absolute;
+		left: -1.2em;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+	}
+	.post-body ol {
+		list-style: decimal;
+	}
+	.post-body li + li {
+		margin-top: 0.4em;
+	}
+	.post-body code {
+		background: var(--color-accent-soft);
+		padding: 0.1em 0.35em;
+		border-radius: 2px;
+		font-size: 0.92em;
+	}
+	.post-body pre {
+		background: #1a1a1a;
+		color: #f6f6ef;
+		padding: 1rem;
+		overflow-x: auto;
+		font-size: 13px;
+		line-height: 1.5;
+		border-radius: 2px;
+	}
+	.post-body pre code {
+		background: transparent;
+		padding: 0;
+		color: inherit;
+		font-size: inherit;
+	}
+	.post-body blockquote {
+		border-left: 2px solid var(--color-border);
+		padding-left: 1em;
+		color: var(--color-muted);
+		font-style: italic;
+	}
+	.post-body hr {
+		border: 0;
+		border-top: 1px dashed var(--color-border-soft);
+		margin: 2em 0;
+	}
+	.post-body img {
+		max-width: 100%;
+		height: auto;
+		border: 1px solid var(--color-border-soft);
+	}
+</style>

@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import AsciiDivider from '../../components/AsciiDivider.astro';
+import PostCard from '../../components/PostCard.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout title="blog · sabohat">
+	<h1 class="text-2xl">/blog</h1>
+	<p class="mt-2 font-mono text-sm text-muted">
+		// Sabohat (SNN miya-asosli AI) ustida olib borilayotgan ish kundaligi.
+	</p>
+
+	<AsciiDivider style="single" label={`${posts.length} entries`} />
+
+	<section class="divide-y divide-border-soft">
+		{posts.map((p, i) => (
+			<PostCard
+				index={i}
+				title={p.data.title}
+				href={`/blog/${p.id}`}
+				date={p.data.date.toISOString().slice(0, 10)}
+				tag={p.data.tag}
+				excerpt={p.data.excerpt}
+			/>
+		))}
+	</section>
+</Layout>

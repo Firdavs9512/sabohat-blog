@@ -1,0 +1,19 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="pb-10">
+	<div class="ascii text-[10px] sm:text-xs text-muted leading-tight select-none">
+{`════════════════════════════════════════════════════════════════════`}
+	</div>
+	<div class="mt-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
+		<div>
+			<span>// © {year} sabohat</span>
+			<span class="ml-3">built with astro + ☕</span>
+		</div>
+		<div class="flex gap-3">
+			<a href="https://ai.solvie.me" class="no-underline hover:text-accent">ai.solvie.me</a>
+			<a href="/rss.xml" class="no-underline hover:text-accent">rss</a>
+		</div>
+	</div>
+</footer>

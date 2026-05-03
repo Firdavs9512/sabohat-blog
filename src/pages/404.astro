@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AsciiDivider from '../components/AsciiDivider.astro';
+
+const art = String.raw` ┌────────────────────────────┐
+ │  404 · sahifa topilmadi    │
+ │  ─ signal lost ─           │
+ └────────────────────────────┘`;
+---
+
+<Layout title="404 · sabohat">
+	<pre class="ascii text-sm sm:text-base text-muted leading-tight select-none">{art}</pre>
+
+	<AsciiDivider style="dashed" />
+
+	<p class="text-[17px] leading-relaxed">
+		Siz qidirgan sahifa mavjud emas. Balki nomi o'zgargan yoki o'chirilgan.
+	</p>
+	<div class="mt-4 font-mono text-sm">
+		<a href="/" class="no-underline hover:text-accent">← bosh sahifa</a>
+	</div>
+</Layout>

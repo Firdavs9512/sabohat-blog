@@ -1,0 +1,29 @@
+---
+interface Props {
+	style?: 'double' | 'single' | 'dashed' | 'dotted' | 'plus';
+	label?: string;
+}
+const { style = 'single', label } = Astro.props;
+
+const chars: Record<string, string> = {
+	double: '═',
+	single: '─',
+	dashed: '╌',
+	dotted: '·',
+	plus: '+',
+};
+const ch = chars[style];
+const line = ch.repeat(80);
+---
+
+<div class="ascii my-6 text-muted text-[10px] sm:text-xs leading-tight select-none">
+	{label ? (
+		<div class="flex items-center gap-2">
+			<span class="shrink-0">{ch.repeat(3)}</span>
+			<span class="font-mono uppercase tracking-widest">[ {label} ]</span>
+			<span class="grow truncate">{line}</span>
+		</div>
+	) : (
+		<div class="truncate">{line}</div>
+	)}
+</div>

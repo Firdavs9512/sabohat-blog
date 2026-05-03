@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AsciiDivider from '../components/AsciiDivider.astro';
+---
+
+<Layout title="about · sabohat">
+	<h1 class="text-2xl">/about</h1>
+
+	<AsciiDivider style="dashed" />
+
+	<div class="space-y-4 text-[17px] leading-relaxed">
+		<p>
+			Bu blog — <strong>Sabohat</strong> deb nomlangan, miyaga o'xshash
+			ishlovchi AI model ustidagi ishlarim haqida.
+			<strong>Spiking Neural Network</strong> (SNN) arxitekturasi asosida
+			qurilgan; klassik ANN'lardan farqli o'laroq, neyronlar uzluksiz
+			signal emas, biologik miyadagi kabi <em>spike</em>'lar orqali
+			muloqot qiladi.
+		</p>
+		<p>
+			Asosiy maqsadlar: <span class="font-mono text-sm">(1)</span> modelni
+			o'z-o'zidan o'rgana oladigan holatga olib chiqish,
+			<span class="font-mono text-sm">(2)</span> continual learning
+			paytidagi <em>catastrophic forgetting</em> muammosini sezilarli
+			kamaytirish.
+		</p>
+		<p>
+			Hozirgacha 200+ sinov o'tkazilgan; har biri spike encoding,
+			plasticity qoidalari, va xotira konsolidatsiyasi yo'llarini
+			tekshirish uchun.
+		</p>
+		<p>
+			Bu yerda men: ish kundaliklarini, texnik eslatmalarni va til/AI
+			haqidagi ochiq fikrlarimni baham ko'raman.
+		</p>
+		<p class="font-mono text-sm text-muted">
+			// aloqa: <a href="mailto:hello@solvie.me">hello@solvie.me</a>
+		</p>
+	</div>
+</Layout>

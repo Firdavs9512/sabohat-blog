@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AsciiDivider from '../../components/AsciiDivider.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
+---
+
+<Layout lang={lang} title={t('about.title')} description={t('about.description')}>
+	<h1 class="text-2xl">{t('about.heading')}</h1>
+
+	<AsciiDivider style="dashed" />
+
+	<div class="space-y-4 text-[17px] leading-relaxed">
+		<p>
+			This blog is about my work on <strong>Sabohat</strong> — a
+			brain-inspired AI model. The current architecture is a
+			<strong>Spiking Neural Network</strong> (SNN); unlike classic ANNs,
+			neurons here communicate not via continuous signals but through
+			<em>spikes</em>, like in a biological brain.
+		</p>
+		<p>
+			The project started as a <strong>Graph Neural Network</strong>
+			(GNN) — a 4-level (character → morpheme → word → semantic) graph
+			structure. After several experiments I switched to SNN, since it
+			is closer to the biological brain and more energy-efficient. I'll
+			write about that transition in separate posts.
+		</p>
+		<p>
+			Main goals: <span class="font-mono text-sm">(1)</span> bring the
+			model to a state where it can learn on its own,
+			<span class="font-mono text-sm">(2)</span> significantly reduce
+			<em>catastrophic forgetting</em> in continual learning.
+		</p>
+		<p>
+			So far 200+ experiments have been run; each tests spike encoding,
+			plasticity rules and memory consolidation strategies.
+		</p>
+		<p>
+			Here I share: dev journals, technical notes, and open thoughts on
+			language and AI.
+		</p>
+		<p class="font-mono text-sm text-muted">
+			// contact: <a href="mailto:hello@solvie.me">hello@solvie.me</a>
+		</p>
+	</div>
+</Layout>

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { defaultLang, getLangFromUrl, languages, useTranslations, stripLangFromPath, type Lang } from '../i18n/ui';
 
 interface Props {
 	title?: string;
@@ -10,11 +11,16 @@ interface Props {
 	type?: 'website' | 'article';
 	publishedTime?: string;
 	tag?: string;
+	lang?: Lang;
 }
 
+const detectedLang = getLangFromUrl(Astro.url);
+const lang: Lang = Astro.props.lang ?? detectedLang;
+const t = useTranslations(lang);
+
 const {
-	title = "Sabohat — AI tadqiqot kundaligi",
-	description = "Sabohat (Samantha) — miyaga o'xshash ishlovchi SNN AI modeli. O'zbek tili uchun, self-learning va continual learning fokusida olib borilayotgan ish kundaligi.",
+	title,
+	description = t('site.description'),
 	image = '/og-default.png',
 	type = 'website',
 	publishedTime,
@@ -22,13 +28,24 @@ const {
 } = Astro.props;
 
 const siteName = 'Sabohat';
-const fullTitle = title.includes('Sabohat') ? title : `${title} · Sabohat`;
+const resolvedTitle = title ?? t('site.title');
+const fullTitle = resolvedTitle.includes('Sabohat') ? resolvedTitle : `${resolvedTitle} · Sabohat`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://ai.solvie.me').toString();
 const ogImage = new URL(image, Astro.site ?? 'https://ai.solvie.me').toString();
+
+const basePath = stripLangFromPath(Astro.url.pathname);
+const altLinks = (Object.keys(languages) as Lang[]).map((code) => {
+	const path = code === defaultLang ? basePath : `/${code}${basePath === '/' ? '' : basePath}`;
+	return {
+		hreflang: code,
+		href: new URL(path, Astro.site ?? 'https://ai.solvie.me').toString(),
+	};
+});
+const xDefault = new URL(basePath, Astro.site ?? 'https://ai.solvie.me').toString();
 ---
 
 <!doctype html>
-<html lang="uz">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,15 +54,19 @@ const ogImage = new URL(image, Astro.site ?? 'https://ai.solvie.me').toString();
 		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
+		{altLinks.map((l) => (
+			<link rel="alternate" hreflang={l.hreflang} href={l.href} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={xDefault} />
 
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="alternate" type="application/rss+xml" title={`${siteName} RSS`} href="/rss.xml" />
+		<link rel="alternate" type="application/rss+xml" title={`${siteName} RSS`} href={lang === defaultLang ? '/rss.xml' : `/${lang}/rss.xml`} />
 
 		<meta name="author" content="Firdavs" />
 		<meta name="robots" content="index, follow, max-image-preview:large" />
 		<meta name="theme-color" content="#f6f6ef" />
-		<meta name="keywords" content="Sabohat, Samantha, AI, SNN, spiking neural network, sun'iy intellekt, o'zbek tili, neural network, continual learning, brain-inspired AI, machine learning" />
+		<meta name="keywords" content={t('site.keywords')} />
 
 		<meta property="og:type" content={type} />
 		<meta property="og:site_name" content={siteName} />
@@ -54,7 +75,7 @@ const ogImage = new URL(image, Astro.site ?? 'https://ai.solvie.me').toString();
 		<meta property="og:url" content={canonical} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:alt" content={fullTitle} />
-		<meta property="og:locale" content="uz_UZ" />
+		<meta property="og:locale" content={t('site.locale')} />
 		{publishedTime && <meta property="article:published_time" content={publishedTime} />}
 		{tag && <meta property="article:tag" content={tag} />}
 
@@ -77,11 +98,11 @@ const ogImage = new URL(image, Astro.site ?? 'https://ai.solvie.me').toString();
 	</head>
 	<body class="bg-bg text-ink overflow-x-hidden">
 		<div class="mx-auto max-w-3xl px-4 sm:px-8">
-			<Header />
+			<Header lang={lang} />
 			<main class="py-8 sm:py-10">
 				<slot />
 			</main>
-			<Footer />
+			<Footer lang={lang} />
 		</div>
 	</body>
 </html>

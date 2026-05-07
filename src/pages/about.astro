@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AsciiDivider from '../components/AsciiDivider.astro';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'uz' as const;
+const t = useTranslations(lang);
 ---
 
-<Layout
-	title="Men haqimda · Sabohat"
-	description="Sabohat — miyaga o'xshash ishlovchi SNN (Spiking Neural Network) AI modeli. Loyihaning maqsadi, bosqichlari va shu yerda nima yozilishi haqida."
->
-	<h1 class="text-2xl">/men-haqimda</h1>
+<Layout lang={lang} title={t('about.title')} description={t('about.description')}>
+	<h1 class="text-2xl">{t('about.heading')}</h1>
 
 	<AsciiDivider style="dashed" />
 

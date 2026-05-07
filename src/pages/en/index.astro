@@ -1,13 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import AsciiBanner from '../components/AsciiBanner.astro';
-import InfoCard from '../components/InfoCard.astro';
-import AsciiDivider from '../components/AsciiDivider.astro';
-import PostCard from '../components/PostCard.astro';
-import { useTranslations } from '../i18n/ui';
-import { entryHref, getEntrySlug, getPostsByLang } from '../i18n/blog';
+import Layout from '../../layouts/Layout.astro';
+import AsciiBanner from '../../components/AsciiBanner.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import AsciiDivider from '../../components/AsciiDivider.astro';
+import PostCard from '../../components/PostCard.astro';
+import { useTranslations } from '../../i18n/ui';
+import { entryHref, getPostsByLang } from '../../i18n/blog';
 
-const lang = 'uz' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const posts = (await getPostsByLang(lang)).slice(0, 5);
 ---
@@ -18,12 +18,11 @@ const posts = (await getPostsByLang(lang)).slice(0, 5);
 	<section class="mt-2">
 		<p class="text-[17px] leading-relaxed">
 			<span class="font-mono text-muted">&gt; </span>
-			<strong>Sabohat</strong> —
-			<abbr title="Spiking Neural Network">SNN</abbr> asosida ishlaydigan,
-			miyaga o'xshash AI model. Maqsad — modelni o'z-o'zidan o'rgana
-			oladigan holatga olib chiqish va
-			<abbr title="Continual Learning">CL</abbr> muammosini (catastrophic
-			forgetting) sezilarli darajada kamaytirish.
+			<strong>Sabohat</strong> — a brain-inspired AI model based on
+			<abbr title="Spiking Neural Network">SNN</abbr>. The goal — make
+			the model learn on its own and significantly reduce the
+			<abbr title="Continual Learning">CL</abbr> problem (catastrophic
+			forgetting).
 		</p>
 
 		<InfoCard
@@ -52,6 +51,6 @@ const posts = (await getPostsByLang(lang)).slice(0, 5);
 	</section>
 
 	<div class="mt-6 font-mono text-xs text-muted">
-		<a href="/blog" class="no-underline hover:text-accent">{t('home.allPosts')}</a>
+		<a href="/en/blog" class="no-underline hover:text-accent">{t('home.allPosts')}</a>
 	</div>
 </Layout>

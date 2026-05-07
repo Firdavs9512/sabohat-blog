@@ -1,17 +1,25 @@
 ---
+import { defaultLang, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const rssHref = lang === defaultLang ? '/rss.xml' : `/${lang}/rss.xml`;
 ---
 
 <footer class="pb-10">
 	<div class="border-t border-dashed border-border-soft"></div>
 	<div class="mt-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-muted">
 		<div class="flex flex-wrap gap-x-3 gap-y-1">
-			<span>// © {year} sabohat</span>
-			<span>built with astro + ☕</span>
+			<span>// {t('footer.copy').replace('{year}', String(year))}</span>
+			<span>{t('footer.built')}</span>
 		</div>
 		<div class="flex gap-3">
 			<a href="https://ai.solvie.me" class="no-underline hover:text-accent">ai.solvie.me</a>
-			<a href="/rss.xml" class="no-underline hover:text-accent">rss</a>
+			<a href={rssHref} class="no-underline hover:text-accent">rss</a>
 		</div>
 	</div>
 </footer>

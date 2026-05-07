@@ -5,6 +5,13 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
 	site: 'https://ai.solvie.me',
+	i18n: {
+		defaultLocale: 'uz',
+		locales: ['uz', 'en'],
+		routing: {
+			prefixDefaultLocale: false,
+		},
+	},
 	integrations: [
 		sitemap({
 			filter: (page) => !page.includes('/404'),
@@ -15,6 +22,7 @@ export default defineConfig({
 				defaultLocale: 'uz',
 				locales: {
 					uz: 'uz-UZ',
+					en: 'en-US',
 				},
 			},
 			serialize(item) {

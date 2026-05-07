@@ -1,36 +1,71 @@
 ---
+import { defaultLang, languages, localizePath, stripLangFromPath, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-	{ href: '/', label: 'bosh' },
-	{ href: '/blog', label: 'yozuvlar' },
-	{ href: '/projects', label: 'loyihalar' },
-	{ href: '/about', label: 'men' },
+	{ href: '/', label: t('nav.home') },
+	{ href: '/blog', label: t('nav.blog') },
+	{ href: '/projects', label: t('nav.projects') },
+	{ href: '/about', label: t('nav.about') },
 ];
 
 const path = Astro.url.pathname;
+const basePath = stripLangFromPath(path);
+
+const langLinks = (Object.keys(languages) as Lang[]).map((code) => ({
+	code,
+	href: localizePath(basePath, code),
+	active: code === lang,
+}));
 ---
 
 <header class="pt-6 sm:pt-8">
 	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-		<a href="/" class="no-underline flex items-baseline gap-2 min-w-0">
+		<a href={localizePath('/', lang)} class="no-underline flex items-baseline gap-2 min-w-0">
 			<span class="font-mono text-base font-semibold tracking-tight">[sabohat]</span>
 			<span class="font-mono text-xs text-muted truncate">~/ai.solvie.me</span>
 		</a>
-		<nav class="font-mono text-sm flex gap-3 sm:gap-4 flex-wrap">
-			{links.map((l) => {
-				const active = l.href === '/' ? path === '/' : path.startsWith(l.href);
-				return (
-					<a
-						href={l.href}
-						class:list={[
-							'no-underline hover:text-accent',
-							active && 'text-accent',
-						]}
-					>
-						{active ? `> ${l.label}` : l.label}
-					</a>
-				);
-			})}
-		</nav>
+		<div class="flex flex-wrap items-center gap-3 sm:gap-4">
+			<nav class="font-mono text-sm flex gap-3 sm:gap-4 flex-wrap">
+				{links.map((l) => {
+					const localized = localizePath(l.href, lang);
+					const active = l.href === '/' ? path === localized : path.startsWith(localized);
+					return (
+						<a
+							href={localized}
+							class:list={[
+								'no-underline hover:text-accent',
+								active && 'text-accent',
+							]}
+						>
+							{active ? `> ${l.label}` : l.label}
+						</a>
+					);
+				})}
+			</nav>
+			<div class="font-mono text-xs text-muted flex items-center gap-1">
+				<span class="text-muted">[</span>
+				{langLinks.map((ll, i) => (
+					<>
+						{i > 0 && <span class="text-muted">|</span>}
+						<a
+							href={ll.href}
+							class:list={[
+								'no-underline hover:text-accent',
+								ll.active ? 'text-accent' : '',
+							]}
+							aria-current={ll.active ? 'true' : undefined}
+						>{ll.code}</a>
+					</>
+				))}
+				<span class="text-muted">]</span>
+			</div>
+		</div>
 	</div>
 	<div class="mt-4 border-t border-dashed border-border-soft"></div>
 </header>

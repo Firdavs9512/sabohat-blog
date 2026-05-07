@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import AsciiDivider from '../components/AsciiDivider.astro';
-import { useTranslations } from '../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import AsciiDivider from '../../components/AsciiDivider.astro';
+import { useTranslations } from '../../i18n/ui';
 
-const lang = 'uz' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 ---
 
@@ -16,6 +16,6 @@ const t = useTranslations(lang);
 		{t('404.text')}
 	</p>
 	<div class="mt-4 font-mono text-sm">
-		<a href="/" class="no-underline hover:text-accent">{t('404.home')}</a>
+		<a href="/en/" class="no-underline hover:text-accent">{t('404.home')}</a>
 	</div>
 </Layout>

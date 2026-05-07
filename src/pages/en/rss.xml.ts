@@ -1,13 +1,13 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { entryHref, getPostsByLang } from '../i18n/blog';
+import { entryHref, getPostsByLang } from '../../i18n/blog';
 
 export async function GET(context: APIContext) {
-	const posts = await getPostsByLang('uz');
+	const posts = await getPostsByLang('en');
 
 	return rss({
 		title: 'Sabohat — dev journal',
-		description: "SNN asosidagi miyaga o'xshash AI model ustidagi ish kundaligi.",
+		description: 'A dev journal on the brain-inspired SNN-based AI model.',
 		site: context.site ?? 'https://ai.solvie.me',
 		items: posts.map((post) => ({
 			title: post.data.title,

@@ -1,18 +1,18 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import AsciiDivider from '../../components/AsciiDivider.astro';
-import PostCard from '../../components/PostCard.astro';
-import { useTranslations } from '../../i18n/ui';
-import { entryHref, getPostsByLang } from '../../i18n/blog';
+import Layout from '../../../layouts/Layout.astro';
+import AsciiDivider from '../../../components/AsciiDivider.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { useTranslations } from '../../../i18n/ui';
+import { entryHref, getPostsByLang } from '../../../i18n/blog';
 
-const lang = 'uz' as const;
+const lang = 'en' as const;
 const t = useTranslations(lang);
 const posts = await getPostsByLang(lang);
 ---
 
 <Layout
 	lang={lang}
-	title={`${t('blog.heading').replace('/', '').replace(/^./, (c) => c.toUpperCase())} · Sabohat`}
+	title="Posts · Sabohat"
 	description={t('blog.subtitle').replace('// ', '')}
 >
 	<h1 class="text-2xl">{t('blog.heading')}</h1>
